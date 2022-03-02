@@ -3,30 +3,55 @@ import loginEmailPassword from "../functions/loginEmailPassword";
 
 const Login = () => {
 
-
     async function submitHandler(e) {
         e.preventDefault();
-        const correo = e.target.formCorreo.value;
-        const contra = e.target.formContra.value;
+        const correo = e.target.correo.value;
+        const contra = e.target.contra.value;
         await loginEmailPassword(correo, contra);
-        console.log(correo, contra);
+        console.log('Bienvenido!')
     }
 
-    const formTw = 'flex gap-4 justify-center'
+    const formTw = 'flex flex-col gap-4 justify-center mx-auto'
     const inputTw = 'input input-bordered input-info w-full max-w-xs'
+    const divTw = 'container mx-auto flex flex-col justify-center content-center gap-4 m-24'
+
 
     return (
-        <div className="container mx-auto flex flex-col justify-center content-center gap-4 m-24">
-            <h1 className="text-xl text-center m-4">Inicia sesion, por favor</h1>
-            <form className={formTw} onSubmit={submitHandler} id="formCorreo" >
-                <input type='text' placeholder='Enter email' className={inputTw} />
+
+
+        <div className={divTw}>
+            <form className={formTw} onSubmit={submitHandler}>
+
+                <input
+                    className={inputTw}
+                    id="correo"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    placeholder="Email"
+                />
+
+                <input
+                    className={inputTw}
+                    id="contra"
+                    name="password"
+                    type="password"
+                    autoComplete="name"
+                    required
+                    placeholder="password"
+                />
+                <button
+                    type="submit"
+                    className="btn mx-auto m-4 self-start"
+                >
+                    Submit
+                </button>
             </form>
-            <form className={formTw} onSubmit={submitHandler} id="formContra">
-                <input type='password' placeholder='Enter password' className={inputTw} />
-            </form>
-            <button className="btn mx-auto m-4" type="submit">Iniciar sesion</button>
         </div>
+
     );
+
 }
 
-export default Login; 
+export default Login;
