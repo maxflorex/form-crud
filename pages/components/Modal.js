@@ -1,11 +1,11 @@
 import addProduct from "../functions/addProduct"
 
-const Modal = ({ isModalAdd, setIsModalAdd, actualizarEstadosProductos }) => {
+const Modal = ({ actualizarEstadosProductos }) => {
 
 
     const formTw = 'flex flex-col gap-4 justify-center mx-auto'
     const inputTw = 'input input-bordered input-info w-50'
-    const divTw = 'container mx-auto flex flex-col justify-center content-center gap-4 m-24'
+    const divTw = ''
 
 
     const addProductModal = () => {
@@ -25,17 +25,17 @@ const Modal = ({ isModalAdd, setIsModalAdd, actualizarEstadosProductos }) => {
     return (
         <div className={divTw}>
             {/* OPEN */}
-            <div className="mr-auto">
-                <a href="#my-modal-2" className="btn">Agregar Producto</a>
+            <div className="">
+                <a href="#modal-add" className="btn">Agregar Producto</a>
             </div>
             {/* MODAL */}
-            <div className="modal" id="my-modal-2">
+            <div className="modal" id="modal-add">
                 <div className="modal-box">
 
 
                     <div className='flex flex-col py-16'>
                         <h1 className="text-2xl text-center font-bold">Agregar nuevo producto</h1>
-                        <form className="flex flex-col gap-4 p-8">
+                        <form className="flex flex-col gap-4 p-8" id='formAdd'>
 
                             <input type='text' id="titulo" placeholder="Titulo" className={inputTw} />
                             <input type='number' id="precio" placeholder="Precio" className={inputTw} />
@@ -55,5 +55,6 @@ const Modal = ({ isModalAdd, setIsModalAdd, actualizarEstadosProductos }) => {
         </div>
     );
 }
+
 
 export default Modal;

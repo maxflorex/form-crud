@@ -3,6 +3,7 @@ import getAllProducts from "../functions/getAllProducts"
 import { useEffect, useState } from "react"
 import Modal from "../components/Modal";
 import { eliminarProductoHome } from "../functions/eliminarProductoHome";
+import ModalEditar from "../components/ModalEditar";
 
 
 
@@ -10,12 +11,15 @@ function Home({ usuario }) {
 
 
     const [productos, setProductos] = useState([]);
-    const [isModalAdd, setIsModalAdd] = useState(false)
+    const [productoEditar, setProductoEditar] = useState(null);
+    const [productoEstado, setProductoEstado] = useState({ ...productoEditar} );
+    // const [isModalAdd, setIsModalAdd] = useState(false)
+    // const [isModalEditar, setIsModalEditar] = useState(false)
 
 
     const inputTw = 'input input-bordered input-info w-full max-w-xs'
     const formTw = 'flex gap-4 justify-center ml-auto'
-    const div2 = 'flex container py-8 mx-auto'
+    const div2 = 'flex container py-8 mx-auto gap-4'
 
     function actualizarEstadosProductos() {
         getAllProducts().then((productos) => {
@@ -32,6 +36,7 @@ function Home({ usuario }) {
     useEffect(() => {
         actualizarEstadosProductos()
     }, [])
+
 
     return (
         <>
@@ -63,16 +68,20 @@ function Home({ usuario }) {
                     </thead>
                     <tbody>
 
-                        {productos && productos.map((productos, index) => (
+                        {productos && productos.map((producto, index) => (
 
                             <tr className="hover" key={index}>
                                 <th>{index + 1}</th>
-                                <td>{productos.titulo}</td>
-                                <td>{productos.precio}</td>
-                                <td>{productos.cantidad}</td>
-                                <td>{productos.sku}</td>
+                                <td>{producto.titulo}</td>
+                                <td>{producto.precio}</td>
+                                <td>{producto.cantidad}</td>
+                                <td>{producto.sku}</td>
                                 <td className="flex gap-4">
-                                    <button className="btn btn-info" onClick={addProduct}>Editar</button>
+
+                                    <ModalEditar actualizarEstadosProductos={actualizarEstadosProductos} setProductoEditar={setProductoEditar} productos={productos} setProductos={setProductos} productoEditar={productoEditar} productoEstado={productoEstado} setProductoEstado={setProductoEstado} />
+                                    <Modal actualizarEstadosProductos={actualizarEstadosProductos} />
+
+
                                     <button className="btn btn-error" onClick={() => {
                                         eliminarProductoHome(productos).then(
                                             (confirmation) => {
@@ -87,11 +96,11 @@ function Home({ usuario }) {
                     </tbody>
                 </table>
             </div>
-            <div className="div2">
-                <Modal isModalAdd={isModalAdd} setIsModalAdd={setIsModalAdd} actualizarEstadosProductos={actualizarEstadosProductos} />
-            </div>
         </>
     )
 }
 
-export default Home 
+export default Home
+
+
+// isModalEdit={isModalEdit} setIsModalEdit={setIsModalEdit} actualizarEstadosProductos={actualizarEstadosProductos}
